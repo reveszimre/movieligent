@@ -29,6 +29,4 @@ npm test
 
 ## 6. Notes
 
-- In the form, the button and the ENTER don't make sense, because the search is automatically triggered by the key press
-
 - finish the type guards under `src/type-guards/movie`
