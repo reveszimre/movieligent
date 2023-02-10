@@ -3,8 +3,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 import { mockedApiResponse } from '../../../tests';
 
-const SEARCH_VALUE = 'erica';
-
 jest.useFakeTimers();
 
 global.fetch = jest.fn(() =>
@@ -17,7 +15,7 @@ test('should data fetched & listed, if 3 characters typed', async () => {
   render(<App />);
 
   fireEvent.change(screen.getByTestId('input-field'), {
-    target: { value: SEARCH_VALUE },
+    target: { value: 'erica' },
   });
 
   jest.advanceTimersByTime(2000);
