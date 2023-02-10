@@ -11,10 +11,7 @@ export const HomePage = React.memo(() => {
     <Container>
       <Header />
       {!error && searchMovie && (
-        <>
-          {searchMovie.results.length === 0 && <Alert severity="error">No data</Alert>}
-          {searchMovie?.results.length > 0 && <Table searchMovie={searchMovie} />}
-        </>
+        <>{searchMovie?.results.length > 0 ? <Table searchMovie={searchMovie} /> : <Alert severity="error">No data</Alert>}</>
       )}
     </Container>
   );
