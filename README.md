@@ -21,7 +21,13 @@ This app uses debounce on input field, not every keyPress indicates data fetchin
 npm run build
 ```
 
-## 5. Notes
+## 5. Production
+
+```
+npm test
+```
+
+## 6. Notes
 
 - In the form, the button and the ENTER don't make sense, because the search is automatically triggered by the key press
 

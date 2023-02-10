@@ -101,7 +101,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
                           {row.id}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {row.adult}
+                          {row.adult.toString()}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {row.backdrop_path}
@@ -115,7 +115,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
                         <TableCell component="th" scope="row">
                           {row.original_title}
                         </TableCell>
-                        <TableCell component="th" scope="row" style={{ whiteSpace: 'nowrap' }}>
+                        <TableCell component="th" scope="row">
                           {composeOverviewText(row.overview)}
                         </TableCell>
                         <TableCell component="th" scope="row">
@@ -131,7 +131,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
                           {row.title}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {row.video}
+                          {row.video.toString()}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {row.vote_average}

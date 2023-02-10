@@ -42,7 +42,15 @@ export const Form = React.memo(() => {
 
   return (
     <FormElements>
-      <TextField onChange={onChange} onKeyDown={onHandleKeyDown} value={value} variant="outlined" />
+      <TextField
+        inputProps={{
+          'data-testid': 'input-field',
+        }}
+        onChange={onChange}
+        onKeyDown={onHandleKeyDown}
+        value={value}
+        variant="outlined"
+      />
       <Button onClick={onButtonClick} variant="contained">
         Search
       </Button>

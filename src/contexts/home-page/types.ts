@@ -1,4 +1,4 @@
-import { Favourite, SearchMovie } from 'domains';
+import { SearchMovie } from 'domains';
 import { useFavouritesHook } from 'hooks';
 
 export type IContext = {

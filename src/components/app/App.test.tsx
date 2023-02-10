@@ -1,9 +1,30 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
+import { mockedApiResponse } from '../../../tests';
 
-test('renders learn react link', () => {
+const SEARCH_VALUE = 'erica';
+
+jest.useFakeTimers();
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve(mockedApiResponse),
+  }),
+) as jest.Mock;
+
+test('should data fetched & listed, if 3 characters typed', async () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  fireEvent.change(screen.getByTestId('input-field'), {
+    target: { value: SEARCH_VALUE },
+  });
+
+  jest.advanceTimersByTime(2000);
+
+  await screen.findByText('Favourite');
+
+  mockedApiResponse.results.forEach((it) => {
+    expect(screen.getByText(it.id)).toBeInTheDocument();
+  });
 });
