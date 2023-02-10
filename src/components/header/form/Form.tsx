@@ -13,14 +13,14 @@ export const Form = React.memo(() => {
   const { debounce, cancelDebounce, isDebouncing } = useDebounceHook();
 
   const onButtonClick = useCallback(() => {
-    if (value.length >= 3 && !isDebouncing) {
+    if (value.length >= 1 && !isDebouncing) {
       getData({ query: value });
     }
   }, [getData, isDebouncing, value]);
 
   const onHandleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'Enter' && value.length >= 3 && !isDebouncing) {
+      if (e.key === 'Enter' && value.length >= 1 && !isDebouncing) {
         getData({ query: value });
       }
     },
@@ -35,10 +35,9 @@ export const Form = React.memo(() => {
         debounce(() => getData({ query: val }));
       } else {
         cancelDebounce();
-        setSearchMovie();
       }
     },
-    [cancelDebounce, debounce, getData, setSearchMovie],
+    [cancelDebounce, debounce, getData],
   );
 
   return (
