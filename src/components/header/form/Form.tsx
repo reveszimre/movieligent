@@ -7,37 +7,49 @@ import { useHomePageContext } from 'contexts';
 
 export const Form = React.memo(() => {
   const [value, setValue] = useState('');
+  const [isValueChanged, setIsValueChanged] = useState(false);
 
   const { getData } = useHomePageContext();
 
   const { debounce, cancelDebounce, isDebouncing } = useDebounceHook();
 
+  const fetchData = useCallback((val: string) => {
+    getData({ query: val });
+    setIsValueChanged(false);
+  }, []);
+
   const onButtonClick = useCallback(() => {
     if (value.length >= 1 && !isDebouncing) {
-      getData({ query: value });
+      fetchData(value);
     }
-  }, [getData, isDebouncing, value]);
+  }, [fetchData, isDebouncing, value]);
 
   const onHandleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'Enter' && value.length >= 1 && !isDebouncing) {
-        getData({ query: value });
+      if (isDebouncing) {
+        cancelDebounce();
+      }
+      if (e.key === 'Enter' && value.length >= 1 && isValueChanged) {
+        fetchData(value);
       }
     },
-    [getData, isDebouncing, value],
+    [cancelDebounce, fetchData, isDebouncing, isValueChanged, value],
   );
 
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       const val = e.target.value;
-      setValue(val);
       if (val.length >= 3) {
-        debounce(() => getData({ query: val }));
+        debounce(() => {
+          fetchData(val);
+        });
       } else {
         cancelDebounce();
       }
+      setValue(val);
+      setIsValueChanged(true);
     },
-    [cancelDebounce, debounce, getData],
+    [cancelDebounce, debounce, fetchData],
   );
 
   return (
@@ -51,7 +63,7 @@ export const Form = React.memo(() => {
         value={value}
         variant="outlined"
       />
-      <Button onClick={onButtonClick} variant="contained">
+      <Button disabled={!isValueChanged} onClick={onButtonClick} variant="contained">
         Search
       </Button>
     </FormElements>
