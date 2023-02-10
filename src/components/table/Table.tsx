@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import GradeIcon from '@mui/icons-material/Grade';
 import { Card } from '../card';
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
@@ -13,7 +12,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { Movie, SearchMovie } from 'domains';
-import { PaginationContainer } from './styles';
+import { FavIcon, PaginationContainer } from './styles';
 import { useHomePageContext } from 'contexts';
 
 export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) => {
@@ -96,10 +95,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
                     {searchMovie.results.map((row) => (
                       <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">
-                          <GradeIcon
-                            onClick={() => handleFavourite(row)}
-                            style={{ cursor: 'pointer', color: favourites.find((it) => it.id === row.id) ? 'yellow' : 'grey' }}
-                          />
+                          <FavIcon onClick={() => handleFavourite(row)} disabled={favourites.some((it) => it.id === row.id)} />
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {row.id}

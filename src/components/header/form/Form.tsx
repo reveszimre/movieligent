@@ -8,7 +8,7 @@ import { useHomePageContext } from 'contexts';
 export const Form = React.memo(() => {
   const [value, setValue] = useState('');
 
-  const { getData, setSearchMovie } = useHomePageContext();
+  const { getData } = useHomePageContext();
 
   const { debounce, cancelDebounce, isDebouncing } = useDebounceHook();
 

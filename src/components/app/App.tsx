@@ -4,9 +4,18 @@ import { HomePageContext, EnvironmentVariablesContext } from 'contexts';
 import Alert from '@mui/material/Alert';
 import { Page } from './styles';
 import { HomePage } from 'pages';
+import { useCallback } from 'react';
 
 export const App = React.memo(() => {
   const envs = useMemo(() => validateEnvironmentVariables(), []);
+
+  const composeErrorMessage = useCallback(
+    (error: Record<string, unknown>) =>
+      `Invalid environment variable(s): ${Object.keys(error)
+        .map((it) => `${it}<${error[it]}>`)
+        .join(', ')}`,
+    [],
+  );
 
   return (
     <Page>
@@ -17,13 +26,7 @@ export const App = React.memo(() => {
           </HomePageContext>
         </EnvironmentVariablesContext>
       )}
-      {'error' in envs && (
-        <Alert severity="error">
-          {`Invalid environment variable(s): ${Object.keys(envs.error)
-            .map((it) => `${it}<${envs.error[it]}>`)
-            .join(', ')}`}
-        </Alert>
-      )}
+      {'error' in envs && <Alert severity="error">{composeErrorMessage(envs.error)}</Alert>}
     </Page>
   );
 });

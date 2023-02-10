@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import GradeIcon from '@mui/icons-material/Grade';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import { useHomePageContext } from 'contexts';
+import { FavIcon } from './styles';
 
 export const Favourites = React.memo(() => {
   const { favourites, removeFavourite } = useHomePageContext();
@@ -38,9 +38,8 @@ export const Favourites = React.memo(() => {
         aria-expanded={open ? 'true' : undefined}
         style={{ ...(isDisabled && { pointerEvents: 'none' }) }}
       >
-        <GradeIcon style={{ color: isDisabled ? 'grey' : 'yellow', cursor: 'pointer' }} />
+        <FavIcon disabled={isDisabled} />
       </IconButton>
-
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
