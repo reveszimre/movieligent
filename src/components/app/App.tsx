@@ -6,21 +6,21 @@ import { Page } from './styles';
 import { HomePage } from 'pages';
 
 export const App = React.memo(() => {
-  const data = useMemo(() => validateEnvironmentVariables(), []);
+  const envs = useMemo(() => validateEnvironmentVariables(), []);
 
   return (
     <Page>
-      {'environmentVariables' in data && (
-        <EnvironmentVariablesContext environmentVariables={data.environmentVariables}>
+      {'data' in envs && (
+        <EnvironmentVariablesContext environmentVariables={envs.data}>
           <HomePageContext>
             <HomePage />
           </HomePageContext>
         </EnvironmentVariablesContext>
       )}
-      {'error' in data && (
+      {'error' in envs && (
         <Alert severity="error">
-          {`Invalid environment variable(s): ${Object.keys(data.error)
-            .map((it) => `${it}<${data.error[it]}>`)
+          {`Invalid environment variable(s): ${Object.keys(envs.error)
+            .map((it) => `${it}<${envs.error[it]}>`)
             .join(', ')}`}
         </Alert>
       )}
