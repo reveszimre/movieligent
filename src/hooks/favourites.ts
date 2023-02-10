@@ -1,10 +1,11 @@
+import { favouritesLocalStorageKey } from 'configs';
 import { Favourite } from 'domains';
 import { useCallback, useEffect, useState } from 'react';
 // import { isFavouriteArray } from 'type-guards';
 
 export const useFavouritesHook = () => {
   const [favourites, setFavourites] = useState<Favourite[]>(() => {
-    const favs = localStorage.getItem('moviligent-favourites');
+    const favs = localStorage.getItem(favouritesLocalStorageKey);
     if (!favs) {
       return [];
     }
@@ -41,7 +42,7 @@ export const useFavouritesHook = () => {
   );
 
   useEffect(() => {
-    localStorage.setItem('moviligent-favourites', JSON.stringify(favourites));
+    localStorage.setItem(favouritesLocalStorageKey, JSON.stringify(favourites));
   }, [favourites]);
 
   return { favourites, addFavourite, removeFavourite };
