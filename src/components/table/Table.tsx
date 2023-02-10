@@ -6,24 +6,13 @@ import TableHead from '@mui/material/TableHead';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { Card } from '../card';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
 import { Movie, SearchMovie } from 'domains';
-import { FavIcon, PaginationContainer } from './styles';
+import { FavIcon } from './styles';
 import { useHomePageContext } from 'contexts';
+import { Pagination } from './pagination';
 
 export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) => {
-  const { addFavourite, favourites, removeFavourite, getData } = useHomePageContext();
-
-  const fetchPage = useCallback(
-    (page: number) => {
-      getData({ page, query: searchMovie.searchValue });
-    },
-    [getData, searchMovie.searchValue],
-  );
+  const { addFavourite, favourites, removeFavourite } = useHomePageContext();
 
   const handleFavourite = useCallback(
     (movie: Movie) => {
@@ -51,25 +40,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
         <Card>
           {searchMovie.results.length > 0 && (
             <>
-              <PaginationContainer>
-                {`${searchMovie.page} / ${searchMovie.total_pages}`}
-                <IconButton onClick={() => fetchPage(0)} disabled={searchMovie.page === 1} aria-label="first page">
-                  <FirstPageIcon />
-                </IconButton>
-                <IconButton onClick={() => fetchPage(searchMovie.page - 1)} disabled={searchMovie.page === 1} aria-label="previous page">
-                  <KeyboardArrowLeft />
-                </IconButton>
-                <IconButton
-                  onClick={() => fetchPage(searchMovie.page + 1)}
-                  disabled={searchMovie.page === searchMovie.total_pages}
-                  aria-label="next page"
-                >
-                  <KeyboardArrowRight />
-                </IconButton>
-                <IconButton onClick={() => {}} disabled={searchMovie.page === searchMovie.total_pages} aria-label="last page">
-                  <LastPageIcon />
-                </IconButton>
-              </PaginationContainer>
+              <Pagination page={searchMovie.page} searchValue={searchMovie.searchValue} totalPage={searchMovie.total_pages} />
               <TableContainer>
                 <MaterialTable sx={{ width: '500px' }}>
                   <TableHead>

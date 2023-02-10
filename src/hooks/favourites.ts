@@ -1,11 +1,11 @@
-import { favouritesLocalStorageKey } from 'configs';
+import { FAVOURITE_LOCAL_STORAGE_KEY } from 'configs';
 import { Favourite } from 'domains';
 import { useCallback, useEffect, useState } from 'react';
 // import { isFavouriteArray } from 'type-guards';
 
 export const useFavouritesHook = () => {
   const [favourites, setFavourites] = useState<Favourite[]>(() => {
-    const favs = localStorage.getItem(favouritesLocalStorageKey);
+    const favs = localStorage.getItem(FAVOURITE_LOCAL_STORAGE_KEY);
     if (!favs) {
       return [];
     }
@@ -16,7 +16,7 @@ export const useFavouritesHook = () => {
       return [];
     }
     // TODO: refactor, if type-guard done
-    // return isFavouriteArray(favs) ? favs : [];
+    // return isFavouriteArray(parsed) ? parsed : [];
     return parsed ? (parsed as Favourite[]) : [];
   });
 
@@ -42,7 +42,7 @@ export const useFavouritesHook = () => {
   );
 
   useEffect(() => {
-    localStorage.setItem(favouritesLocalStorageKey, JSON.stringify(favourites));
+    localStorage.setItem(FAVOURITE_LOCAL_STORAGE_KEY, JSON.stringify(favourites));
   }, [favourites]);
 
   return { favourites, addFavourite, removeFavourite };

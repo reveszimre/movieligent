@@ -32,7 +32,6 @@ export const Favourites = React.memo(() => {
     <>
       <IconButton
         onClick={handleClick}
-        sx={{ ml: 2 }}
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}

@@ -13,10 +13,13 @@ export const Form = React.memo(() => {
 
   const { debounce, cancelDebounce, isDebouncing } = useDebounceHook();
 
-  const fetchData = useCallback((val: string) => {
-    getData({ query: val });
-    setIsValueChanged(false);
-  }, []);
+  const fetchData = useCallback(
+    (val: string) => {
+      getData({ query: val });
+      setIsValueChanged(false);
+    },
+    [getData],
+  );
 
   const onButtonClick = useCallback(() => {
     if (value.length >= 1 && !isDebouncing) {
