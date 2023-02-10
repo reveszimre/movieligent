@@ -38,7 +38,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
     },
     [addFavourite, favourites, removeFavourite],
   );
-  console.log(favourites);
+
   return (
     <>
       {searchMovie && (
@@ -90,7 +90,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
                         <TableCell component="th" scope="row">
                           <GradeIcon
                             onClick={() => handleFavourite(row)}
-                            style={{ cursor: 'pointer', color: favourites.find((it) => it.id === row.id) ? 'blue' : 'yellow' }}
+                            style={{ cursor: 'pointer', color: favourites.find((it) => it.id === row.id) ? 'yellow' : 'grey' }}
                           />
                         </TableCell>
                         <TableCell component="th" scope="row">
