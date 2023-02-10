@@ -53,6 +53,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
           {searchMovie.results.length > 0 && (
             <>
               <PaginationContainer>
+                {`${searchMovie.page} / ${searchMovie.total_pages}`}
                 <IconButton onClick={() => fetchPage(0)} disabled={searchMovie.page === 1} aria-label="first page">
                   <FirstPageIcon />
                 </IconButton>
