@@ -43,7 +43,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
     if (text.length <= 50) {
       return text;
     }
-    return `${text.substring(1, 50)}...`;
+    return `${text.substring(0, 50)}...`;
   }, []);
 
   return (
