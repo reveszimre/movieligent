@@ -23,6 +23,8 @@ npm run build
 
 ## Note for improvements with more time
 
+The button and the ENTER don't make sense, because the search is automatically triggered by keyPress
+
 ```
 src\type-guards\movie\is-search-movie.ts
 ```

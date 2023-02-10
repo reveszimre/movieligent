@@ -1,13 +1,13 @@
-import { SearchMovieWithValue } from 'domains';
-import { useBackend } from 'hooks';
+import { SearchMovie } from 'domains';
+import { useBackend, useFavouritesHook } from 'hooks';
 import React, { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react';
-import { isSearchMovie } from 'type-guards';
+import { isSearchMovieResponse } from 'type-guards';
 import { IContext } from './types';
 
 const Context = createContext<IContext | undefined>(undefined);
 
 export const HomePageContext = React.memo(({ children }: PropsWithChildren) => {
-  const [searchMovieValue, setSearchMovieValue] = useState<SearchMovieWithValue>();
+  const [searchMovie, setSearchMovie] = useState<SearchMovie>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
 
@@ -23,17 +23,17 @@ export const HomePageContext = React.memo(({ children }: PropsWithChildren) => {
       }
 
       const { data } = res;
-      if (!isSearchMovie(data)) {
+      if (!isSearchMovieResponse(data)) {
         return setError('Invalid data from server');
       }
 
       setError(undefined);
-      setSearchMovieValue({ ...data, searchValue: query });
+      setSearchMovie({ ...data, searchValue: query });
     },
     [request],
   );
 
-  return <Context.Provider value={{ getData, searchMovieValue, setSearchMovieValue, error, isLoading }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ getData, searchMovie, setSearchMovie, error, isLoading, ...useFavouritesHook() }}>{children}</Context.Provider>;
 });
 
 export const useHomePageContext = (): IContext => {

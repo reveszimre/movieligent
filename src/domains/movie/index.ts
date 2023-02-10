@@ -1,5 +1,7 @@
+export * from './search-movie-response';
+
 export * from './search-movie';
 
-export * from './search-movie-with-value';
+export * from './favourite';
 
 export * from './movie';

@@ -5,15 +5,15 @@ import Alert from '@mui/material/Alert';
 import { useHomePageContext } from 'contexts';
 
 export const HomePage = React.memo(() => {
-  const { error, searchMovieValue } = useHomePageContext();
+  const { error, searchMovie } = useHomePageContext();
 
   return (
     <Container>
       <Header />
-      {!error && searchMovieValue && (
+      {!error && searchMovie && (
         <>
-          {searchMovieValue.results.length === 0 && <Alert severity="error">No data</Alert>}
-          {searchMovieValue?.results.length > 0 && <Table searchMovieValue={searchMovieValue} />}
+          {searchMovie.results.length === 0 && <Alert severity="error">No data</Alert>}
+          {searchMovie?.results.length > 0 && <Table searchMovie={searchMovie} />}
         </>
       )}
     </Container>

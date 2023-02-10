@@ -8,9 +8,15 @@ import { useHomePageContext } from 'contexts';
 export const Form = React.memo(() => {
   const [value, setValue] = useState('');
 
-  const { getData, setSearchMovieValue } = useHomePageContext();
+  const { getData, setSearchMovie } = useHomePageContext();
 
   const { debounce, cancelDebounce, isDebouncing } = useDebounceHook();
+
+  const onButtonClick = useCallback(() => {
+    if (value.length >= 3 && !isDebouncing) {
+      getData({ query: value });
+    }
+  }, [getData, isDebouncing, value]);
 
   const onHandleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
@@ -29,16 +35,18 @@ export const Form = React.memo(() => {
         debounce(() => getData({ query: val }));
       } else {
         cancelDebounce();
-        setSearchMovieValue();
+        setSearchMovie();
       }
     },
-    [cancelDebounce, debounce, getData, setSearchMovieValue],
+    [cancelDebounce, debounce, getData, setSearchMovie],
   );
 
   return (
     <FormElements>
       <TextField onChange={onChange} onKeyDown={onHandleKeyDown} value={value} variant="outlined" />
-      <Button variant="contained">Text</Button>
+      <Button onClick={onButtonClick} variant="contained">
+        Search
+      </Button>
     </FormElements>
   );
 });
