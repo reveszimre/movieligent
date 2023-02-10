@@ -1,32 +1,28 @@
 # Movieligent
 
-## Requirements
+## 1. Requirements
 
-Following environment variables required: REACT_APP_MOVIE_API_URL, REACT_APP_API_KEY
+Following environment variables (`.env`) required: REACT_APP_API_KEY, REACT_APP_MOVIE_API_URL
 
-## Development
+## 2. Development
 
 ```
 npm i
 npm start
 ```
 
-## Operation
+## 3. Operation
 
 This app uses debounce on input field, not every keyPress indicates data fetching to improve performance
 
-## Production
+## 4. Production
 
 ```
 npm run build
 ```
 
-## Note for improvements with more time
+## 5. Notes
 
-The button and the ENTER don't make sense, because the search is automatically triggered by keyPress
+- In the form, the button and the ENTER don't make sense, because the search is automatically triggered by the key press
 
-```
-src\type-guards\movie\is-search-movie.ts
-```
-
-Implement this type guard to check data is SearchMovie type
+- finish the type guards under `src/type-guards/movie`
