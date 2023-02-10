@@ -2,7 +2,7 @@
 
 ## 1. Requirements
 
-Following environment variables (`.env`) required: REACT_APP_API_KEY, REACT_APP_MOVIE_API_URL
+Rename `.env.example` to `.env` and add the values
 
 ## 2. Development
 
