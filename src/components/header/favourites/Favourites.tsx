@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import GradeIcon from '@mui/icons-material/Grade';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
@@ -6,17 +6,27 @@ import MenuItem from '@mui/material/MenuItem';
 import { useHomePageContext } from 'contexts';
 
 export const Favourites = React.memo(() => {
-  const { favourites } = useHomePageContext();
+  const { favourites, removeFavourite } = useHomePageContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
+  const open = Boolean(anchorEl);
   const isDisabled = favourites.length === 0;
+
+  const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setAnchorEl(null);
+  }, []);
+
+  const onMenuItemClick = useCallback(
+    (id: string) => {
+      removeFavourite(id);
+      handleClose();
+    },
+    [handleClose, removeFavourite],
+  );
 
   return (
     <>
@@ -28,7 +38,7 @@ export const Favourites = React.memo(() => {
         aria-expanded={open ? 'true' : undefined}
         style={{ ...(isDisabled && { pointerEvents: 'none' }) }}
       >
-        <GradeIcon onClick={() => {}} style={{ color: isDisabled ? 'grey' : 'yellow', cursor: 'pointer' }} />
+        <GradeIcon style={{ color: isDisabled ? 'grey' : 'yellow', cursor: 'pointer' }} />
       </IconButton>
 
       <Menu
@@ -41,7 +51,9 @@ export const Favourites = React.memo(() => {
         }}
       >
         {favourites.map((it) => (
-          <MenuItem disabled>{it.title}</MenuItem>
+          <MenuItem key={it.id} onClick={() => onMenuItemClick(it.id)}>
+            {it.title}
+          </MenuItem>
         ))}
       </Menu>
     </>

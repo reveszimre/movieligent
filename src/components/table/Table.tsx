@@ -39,6 +39,13 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
     [addFavourite, favourites, removeFavourite],
   );
 
+  const composeOverviewText = useCallback((text: string) => {
+    if (text.length <= 50) {
+      return text;
+    }
+    return `${text.substring(1, 50)}...`;
+  }, []);
+
   return (
     <>
       {searchMovie && (
@@ -112,7 +119,7 @@ export const Table = React.memo(({ searchMovie }: { searchMovie: SearchMovie }) 
                           {row.original_title}
                         </TableCell>
                         <TableCell component="th" scope="row" style={{ whiteSpace: 'nowrap' }}>
-                          {`${row.overview.substring(1, 50)}...`}
+                          {composeOverviewText(row.overview)}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {row.popularity}
